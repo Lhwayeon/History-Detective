@@ -1,0 +1,1514 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HISTORY DETECTIVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gugi&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet"><style>:root{--cream:#fbf1d9;--sand:#e8c98f;--teal:#0f4c5c;--teal2:#1d7a85;--sky:#a9dcf0;--gold:#e0a82e;--ink:#2a2a28;--line:#eadfc4;--pink:#ffd6e0;--mint:#cdeedd;--yel:#fff0b3}
+*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden}
+body{background:linear-gradient(160deg,#0f4c5c,#1b2a49);color:var(--ink);font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-size:18px;line-height:1.55}
+#bg{position:fixed;inset:0;z-index:0}.art{position:relative;display:block}.art>*{position:absolute;inset:0;width:100%;height:100%}.art img{object-fit:contain}.art.bgc{position:absolute;inset:0}.art.bgc img{object-fit:cover}
+main{position:fixed;inset:0;z-index:1;overflow:auto;padding:130px 22px 30px}main.world{overflow:hidden;padding:0}
+#goal{position:fixed;top:10px;left:10px;z-index:30;max-width:min(520px,46vw);background:rgba(15,76,92,.9);color:#fff;border:3px solid var(--gold);border-radius:16px;padding:10px 14px;font-size:1.05rem;font-weight:700;line-height:1.4}#goal b{color:var(--gold)}
+#hud{position:fixed;top:10px;right:10px;left:min(550px,48vw);z-index:30;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center;background:rgba(15,76,92,.55);backdrop-filter:blur(6px);border-radius:16px;padding:8px 12px;color:#fff}#hud:empty{display:none}
+.loc{display:grid;line-height:1.2;margin-right:auto}.loc small{opacity:.85}.pg{position:relative;width:170px;height:26px;background:rgba(255,255,255,.25);border-radius:99px;overflow:hidden}.pg i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold),#ffe08a);transition:width .6s}.pg span{position:relative;display:block;text-align:center;font-weight:800;color:#2a1a00;font-size:.9rem;line-height:26px}.bc{font-weight:800;color:#ffe08a}
+#mlp{position:absolute;top:100%;right:0;margin-top:6px;background:rgba(15,76,92,.95);border:2px solid var(--gold);border-radius:14px;padding:8px;display:grid;gap:6px;min-width:220px}#mlp[hidden]{display:none}.row2{background:#fff3;border:0;color:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-weight:700;text-align:left;cursor:pointer}
+.btn{background:var(--gold);color:#2a1a00;border:3px solid #fff3c0;border-radius:14px;padding:9px 18px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 4px 0 #8a6414;transition:.12s}.btn.alt{background:var(--teal2);color:#fff;border-color:#bfe6ea;box-shadow:0 4px 0 #0a3a45;padding:6px 14px}.btn:hover:not(:disabled){transform:translateY(-2px)}.btn:disabled{opacity:.45;filter:grayscale(.6);cursor:not-allowed}.btn.go{font-size:1.15rem;padding:12px 24px}
+input,textarea,select{width:100%;font:inherit;border:3px solid var(--sand);border-radius:12px;padding:9px;background:#fffdf3;margin:4px 0}
+.card{background:rgba(251,241,217,.96);border:3px solid var(--sand);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 4px 0 rgba(0,0,0,.2)}.hall{background:linear-gradient(160deg,#e6f3fb,#fff1c8);border:4px solid var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.title{min-height:100%;display:flex;align-items:center;justify-content:center;gap:4vw;flex-wrap:wrap;padding-top:20px}.cap{width:clamp(150px,18vw,230px);aspect-ratio:200/260;animation:fl 3s ease-in-out infinite}
+.tbox{background:rgba(15,76,92,.82);border:3px solid var(--gold);border-radius:24px;padding:22px;max-width:440px;color:#fff;text-align:center}.tbox h1{margin:0;letter-spacing:.1em;color:var(--gold);font-size:2.4rem;line-height:1.1}.who{
+  width:250px;
+  height:320px;
+  margin:12px auto;
+}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.term{width:min(720px,94vw);margin:0 auto;background:rgba(10,40,52,.88);border:3px solid var(--gold);border-radius:22px;padding:18px;color:#e9fbff;box-shadow:0 0 40px #e0a82e66}.term h2{margin:0;color:var(--gold)}
+.steps{display:flex;gap:8px;margin:8px 0}.steps i{flex:1;height:12px;border-radius:9px;background:#fff3}.steps i.ok{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.slot{background:#ffffff14;border:2px solid #fff4;border-radius:14px;padding:10px 12px;margin:8px 0}.slot.ok{border-color:var(--gold);background:#e0a82e26;animation:glow .9s}.slot .row{display:flex;gap:8px}.slot input{margin:0}
+@keyframes glow{0%{box-shadow:0 0 0 #ffe08a}50%{box-shadow:0 0 40px #ffe08a}}
+.fd .hint,.hint{background:var(--pink);color:var(--ink);border-radius:12px;padding:8px 12px;margin-top:6px}.ok{color:#2e8b57;font-weight:700}.no{color:#c0504d;font-weight:700}
+.mapbox{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);width:min(100vw,calc((100vh - 100px)*1.667));aspect-ratio:5/3;border-radius:24px;overflow:hidden;border:5px solid #fff8;box-shadow:0 10px 40px #0006}
+.mk{position:absolute;transform:translate(-50%,-50%);background:none;border:0;cursor:pointer;display:grid;justify-items:center;gap:4px;font:inherit;z-index:2}
+.pin {
+  width: clamp(64px, 7.5vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at 35% 30%, #ffffff55, transparent 45%),
+    linear-gradient(145deg, var(--c), #263e50);
+
+  border: 5px solid #e9c66d;
+
+  box-shadow:
+    0 0 0 3px #fff,
+    0 5px 0 #8c682c,
+    0 8px 15px #0006,
+    inset 0 0 0 3px #ffffff55;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  animation: questGlow 2.2s ease-in-out infinite;
+}
+
+.pin::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid #fff9;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.pin svg.s {
+  width: 68%;
+  height: 68%;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 2px #0005);
+}
+
+@keyframes questGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px #fff,
+      0 5px 0 #8c682c,
+      0 8px 15px #0006,
+      inset 0 0 0 3px #ffffff55;
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 3px #fff,
+      0 5px 0 #8c682c,
+      0 8px 20px #0008,
+      0 0 16px #f5d77b,
+      inset 0 0 0 3px #ffffff88;
+  }
+}
+.mk.lk .pin{background:#7b7b7b;animation:none}.mk.dn .pin{animation:none}.mk b{background:rgba(15,76,92,.92);color:#fff;border-radius:10px;padding:2px 12px;font-size:1.1rem;white-space:nowrap}
+.ls{position:absolute;right:-10px;bottom:-10px;width:36px!important;height:36px;background:var(--teal);border-radius:50%;padding:7px;border:3px solid #fff}.ls.st{background:var(--gold)}
+.npc{position:absolute;width:clamp(110px,14vw,190px);aspect-ratio:3/5;transform:translate(-50%,-100%);cursor:pointer;z-index:3;transition:.2s}.npc:hover{transform:translate(-50%,-102%)}.npc em{position:absolute;left:50%;bottom:50px;transform:translateX(-50%);background:var(--teal);color:#fff;border-radius:99px;padding:2px 14px;font-style:normal;font-weight:800;white-space:nowrap}
+.npc .arrow{position:absolute;top:-34px;left:50%;transform:translateX(-50%);color:#fff;background:var(--gold);color:#2a1a00;border-radius:99px;padding:2px 12px;font-weight:800;text-decoration:none;animation:fl 1s infinite;white-space:nowrap}.arrow.hide{display:none}
+.obj{position:absolute;transform:translate(-50%,-50%);width:clamp(76px,9.5vw,130px);background:none;border:0;cursor:pointer;z-index:3;animation:fl 2.2s ease-in-out infinite;filter:drop-shadow(0 6px 4px #0005);font:inherit}.obj .art{aspect-ratio:1;position:relative}
+.obj.lk{filter:grayscale(1) brightness(.6);animation:none;cursor:not-allowed}.obj.on:not(.dn) .art{filter:drop-shadow(0 0 14px #fff6a8)}.obj.dn{opacity:.85}.obj.dn::after{content:"✔";position:absolute;top:-6px;right:-6px;background:#2e8b57;color:#fff;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;font-weight:900}
+.obj b{display:block;background:rgba(15,76,92,.9);color:#fff;border-radius:10px;padding:1px 8px;font-size:.95rem;margin-top:2px}
+#dlg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(1000px,94vw);z-index:25;display:flex;gap:16px;align-items:center;background:rgba(255,248,226,.98);border:4px solid var(--teal);border-radius:24px;padding:14px 20px;box-shadow:0 8px 0 #0004;animation:up2 .3s}@keyframes up2{from{transform:translate(-50%,40px);opacity:0}}
+#dlg .pt{width:96px;height:150px;flex:none}#dlg .nm{background:var(--teal);color:#fff;border-radius:99px;padding:2px 14px}#dlg p{font-size:1.3rem;margin:8px 0}
+.modal{position:fixed;inset:0;z-index:40;background:#0007;display:grid;place-items:center;padding:12px}.panel{background:var(--cream);border:4px solid var(--teal);border-radius:24px;padding:22px;width:min(700px,94vw);max-height:92vh;overflow:auto;animation:pop .35s}.panel h2{margin:0}.ph{display:flex;align-items:center;gap:12px}.ph .art{width:70px;height:70px;flex:none}.row{display:flex;gap:10px;margin-top:10px}
+.opt{display:block;padding:10px 14px;border:3px solid var(--sand);border-radius:12px;margin:6px 0;cursor:pointer;background:#fffdf3}.opt:has(input:checked){background:var(--sky);border-color:var(--teal2)}.opt input{width:auto;margin-right:8px}
+.bov{position:fixed;inset:0;z-index:50;background:radial-gradient(#0f4c5ccc,#0a1f2ae6);display:grid;place-content:center;justify-items:center;text-align:center;color:#fff;padding:20px}.bov .bd{width:min(260px,50vw);aspect-ratio:1;animation:pop .8s;z-index:1}.rays{position:absolute;width:140vmax;height:140vmax;left:50%;top:50%;margin:-70vmax;background:repeating-conic-gradient(#e0a82e33 0 10deg,#0000 10deg 20deg);animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.bov>*{position:relative}.unl{color:#ffe08a;font-weight:800;font-size:1.2rem}
+@keyframes pop{0%{transform:scale(.4) rotate(-15deg);opacity:0}60%{transform:scale(1.15)}100%{transform:none;opacity:1}}
+.book{width:min(1100px,96vw);margin:0 auto;background:#fbf1d9;border:6px solid #5b3b2a;border-radius:26px;padding:20px;box-shadow:0 12px 0 #2b1a10}.book h2{margin:0 0 8px;text-align:center}
+.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.entry{border:3px dashed #c9b88f;border-radius:18px;padding:12px;text-align:center;background:#fff8e6}.entry .bi{width:120px;height:120px;margin:0 auto;filter:grayscale(1) brightness(.75);opacity:.6}.entry.on{border:3px solid var(--c);background:#fffdf3}.entry.on .bi{filter:none;opacity:1;animation:pop .6s}.entry h3{margin:4px 0}
+.gate{margin-top:14px;display:flex;gap:14px;align-items:center;justify-content:center;background:var(--teal);color:#fff;border-radius:18px;padding:12px;font-weight:800}.gate.open{background:linear-gradient(90deg,var(--gold),#ffe08a);color:#2a1a00;animation:glow 1.2s infinite}
+.stks{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.stk{border:3px solid transparent;border-radius:16px;padding:6px 14px;font:inherit;font-weight:800;cursor:pointer;transform:rotate(-2deg);box-shadow:0 3px 0 #0003}.stk.e{background:var(--yel)}.stk.s{background:var(--pink)}.stk.w{background:var(--mint)}
+.stk.on{border-color:var(--ink);transform:rotate(2deg) scale(1.08)}.stk:disabled{opacity:.5;cursor:not-allowed}.stk.pop{animation:stamp .5s}@keyframes stamp{0%{transform:scale(2.4) rotate(-25deg);opacity:0}70%{transform:scale(.9)}100%{transform:rotate(2deg) scale(1.08);opacity:1}}
+.post{position:relative;background:#fffaf0;border:3px solid var(--sand);animation:drop .5s}.post::before{content:"";position:absolute;top:-8px;left:50%;width:16px;height:16px;border-radius:50%;background:#d9534f;box-shadow:0 3px 0 #0004}@keyframes drop{from{opacity:0;transform:translateY(-20px) rotate(-1.5deg)}}
+.meta{font-size:.85rem;color:#7a766b}.cm{background:#f3ecd6;border-radius:12px;padding:6px 10px;margin:4px 0;font-size:.95rem}.cf{display:flex;gap:6px}.cf input{margin:0}
+#toast{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:99px;opacity:0;transition:.3s;z-index:60;pointer-events:none}#toast.on{opacity:1}
+.fx{position:fixed;font-size:1.8rem;color:#ffd24a;pointer-events:none;z-index:70;animation:up 1.2s ease-out forwards}@keyframes up{to{transform:translateY(-160px) rotate(40deg);opacity:0}}
+table{width:100%;border-collapse:collapse;font-size:.95rem}td,th{border-bottom:1px solid var(--line);padding:5px;text-align:center}.ticket{border:4px dashed var(--gold);border-radius:18px;background:var(--cream);padding:18px;text-align:center;max-width:620px;margin:12px auto}
+.tch #goal{display:none}.tch main{padding-top:20px}
+@media(max-width:900px){#goal{right:10px;max-width:none}#hud{top:84px;left:10px}main{padding-top:180px}}
+/* ===== v3: 글꼴·에셋 경로·지도 좌표(여기서 수정) ===== */
+:root{--pin:clamp(56px,7.5vw,92px);--map-ar:5/3;--map-r:1.667}
+body{background:#f6e7c1;font-family:"Jua","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+button,input,textarea,select{font-family:inherit}
+.f-title,.tbox h1,.term h2{font-family:"Gugi","Jua","Malgun Gothic",sans-serif}
+#dlg p,.f-npc,.npc em,#dlg .nm{font-family:"Nanum Pen Script","Jua","Malgun Gothic",cursive}#dlg p{font-size:1.9rem;line-height:1.3}
+/* .art 높이 붕괴(지도·NPC가 안 보이던 원인) 수정 */
+.npc{
+  width:clamp(160px,18vw,250px);
+  height:calc(clamp(160px,18vw,250px)*5/3);
+  aspect-ratio:auto;
+}
+.npc>.art,.pt>.art,.who>.art,.cap>.art,.bd>.art,.mapbox>.art{position:absolute;inset:0}
+.pt,.who,.cap,.bd{position:relative}.cap{height:calc(clamp(150px,18vw,230px)*1.3);aspect-ratio:auto}.bd{height:min(260px,50vw)}
+.mapbox{aspect-ratio:var(--map-ar);width:min(100vw,calc((100vh - 100px)*var(--map-r)))}
+.pin{width:var(--pin)}
+.mk.r1{left:50%;top:63%}.mk.r2{left:22.5%;top:50%}.mk.r3{left:26%;top:17%}.mk.r4{left:64%;top:33%}
+.mk.ready .pin {
+  border-color: #fff2a6;
+  filter: brightness(1.12);
+  animation: questGlow 1.3s ease-in-out infinite;
+}
+.bm{position:absolute;right:-18px;bottom:-18px;width:52px;height:52px;border-radius:50%;background:#fff;border:3px solid var(--gold);z-index:2}.bm>.art{position:absolute;inset:3px;width:auto;height:auto}
+#tdr{position:fixed;top:130px;right:10px;bottom:10px;width:min(580px,94vw);z-index:35;overflow:auto;background:rgba(15,76,92,.96);color:#fff;border:3px solid var(--gold);border-radius:18px;padding:14px}#tdr[hidden]{display:none}#tdr h3{margin:0}#tdr h4{margin:14px 0 4px;color:var(--gold)}#tdr .cg{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}#tdr .btn{padding:6px 12px;font-size:.9rem}#tdr table{color:#fff;font-size:.85rem}#tdr td,#tdr th{border-color:#fff3}
+.term .ok{color:#9be0b8}
+/* 메인 화면 캐릭터 크기 */
+.who {
+  width: 220px !important;
+  height: 340px !important;
+  margin: 15px auto !important;
+}
+
+.who .art {
+  width: 100%;
+  height: 100%;
+}
+/* 지역별 NPC 크기 */
+.npc {
+  width: clamp(180px, 22vw, 280px) !important;
+  height: auto !important;
+  aspect-ratio: 3 / 5 !important;
+}
+/* NPC 크기 강제 확대 */
+.npc {
+  width: 480px !important;
+  height: 800px !important;
+}
+
+.npc .art {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.npc .art img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  transform: scale(0.8) !important;
+  transform-origin: bottom center !important;
+}
+/* NPC 대화하기 안내 복구 */
+.npc .arrow {
+  display: block !important;
+  position: absolute !important;
+  top: 210px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* 대화하기 버튼 강조 애니메이션 */
+@keyframes talkPulse {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -10px) scale(1.12);
+  }
+}
+
+/* 대화하기 버튼 강조 애니메이션 */
+@keyframes talkPulse {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -10px) scale(1.12);
+  }
+}
+
+/* 메인 화면 안내자 이미지 */
+.login-character {
+  width: 340px;
+  height: 350px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.who {
+  position: relative;
+  left: -60px;
+  top: 9px;
+}
+
+/* 지도 미션 버튼 실제 위치 */
+.mk.r1 { /* 아라비아반도 */
+  left: 51%;
+  top: 69%;
+}
+
+.mk.r2 { /* 이집트 */
+  left: 34%;
+  top: 50%;
+}
+
+.mk.r3 { /* 오스만 제국 */
+  left: 30%;
+  top: 26%;
+}
+
+.mk.r4 { /* 이란 */
+  left: 64%;
+  top: 36%;
+}
+
+/* 지역 미션 배경 이미지 크기 조절 */
+#bg .art {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 지역 미션 배경만 크기 조절 */
+#bg .region-bg {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#bg .region-bg img {
+  width: 80vw !important;
+  height: 80vh !important;
+  object-fit: contain !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+}
+/* 지도는 추가한 PNG 이미지만 표시 */
+.mapbox {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  transform: none;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  background: #e8dfc9;
+}
+
+.map-only {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  border-radius: 0;
+}
+
+.npc > .art {
+  position: absolute;
+  inset: 0;
+}
+
+.npc {
+  width: clamp(360px, 35vw, 480px);
+  height: auto;
+  aspect-ratio: 3 / 5;
+}
+.npc .art {
+  width: 100%;
+  height: 100%;
+}
+
+.npc .art img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+
+
+/* 공유 게시판 카드형 배치 */
+#list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+#list .post {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'LeeSeoyun';
+  src: url('./fonts/이서윤체.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+#dlg .npc-line {
+  font-family: 'LeeSeoyun', sans-serif !important;
+}
+
+/* ===== HISTORY DETECTIVE 모바일 최적화 ===== */
+@media (max-width: 600px) {
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  /* 학습 목표 */
+  #goal {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    max-width: none;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    padding: 6px 8px;
+    border-width: 2px;
+    border-radius: 10px;
+  }
+
+  /* 상단 메뉴 */
+  #hud {
+    top: 104px;
+    left: 6px;
+    right: 6px;
+    gap: 5px;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  #hud .loc {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  .pg {
+    width: 120px;
+    height: 22px;
+  }
+
+  .pg span {
+    line-height: 22px;
+    font-size: 0.75rem;
+  }
+
+  #hud .btn.alt {
+    font-size: 0.72rem;
+    padding: 4px 7px;
+    border-width: 2px;
+    border-radius: 9px;
+  }
+
+  /* 일반 콘텐츠 */
+  main {
+    padding: 220px 10px 20px;
+  }
+
+  main.world {
+    padding: 0;
+  }
+
+  .term {
+    width: min(720px, calc(100vw - 20px));
+    padding: 12px;
+    border-width: 2px;
+  }
+
+  .term h2 {
+    font-size: 1.15rem;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn.go {
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+
+  /* 첫 화면 */
+  .title {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .tbox {
+    width: 100%;
+    max-width: 400px;
+    padding: 14px;
+  }
+
+  .tbox h1 {
+    font-size: 1.8rem;
+  }
+
+  .who {
+    width: 160px !important;
+    height: 210px !important;
+    left: 0;
+    top: 0;
+    margin: 8px auto !important;
+  }
+
+  .login-character {
+    width: 100%;
+    height: 100%;
+    max-width: 180px;
+    object-fit: contain;
+  }
+
+  /* 서아시아 지도: 전체 지도 비율 유지 */
+  .mapbox {
+    width: min(100vw, 166.67dvh);
+    height: min(100dvh, 60vw);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #fff8;
+  }
+
+  .map-only {
+    object-fit: contain;
+  }
+
+  /* 지도 미션 버튼 */
+  .pin {
+    width: clamp(38px, 10vw, 58px);
+    border-width: 3px;
+  }
+
+  .mk b {
+    font-size: 0.7rem;
+    padding: 1px 5px;
+    white-space: normal;
+    max-width: 22vw;
+    text-align: center;
+  }
+
+  .ls {
+    width: 28px !important;
+    height: 28px;
+    padding: 4px;
+  }
+
+  /* 지역별 캐릭터 */
+  .npc {
+    width: clamp(140px, 38vw, 220px) !important;
+    height: auto !important;
+    aspect-ratio: 3 / 5 !important;
+  }
+
+  .npc .arrow {
+    top: 52% !important;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+  }
+
+  /* 캐릭터 대화창 */
+  #dlg {
+    bottom: 6px;
+    width: calc(100vw - 12px);
+    gap: 8px;
+    padding: 8px 10px;
+    border-width: 2px;
+    border-radius: 14px;
+  }
+
+  #dlg .pt {
+    width: 58px;
+    height: 92px;
+  }
+
+  #dlg p {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  #dlg .btn {
+    font-size: 0.82rem;
+    padding: 7px 10px;
+  }
+
+  /* 미션 팝업 */
+  .panel {
+    width: calc(100vw - 16px);
+    max-height: 88dvh;
+    padding: 14px;
+  }
+
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .cf {
+    flex-wrap: wrap;
+  }
+
+  .cf input {
+    min-width: 0;
+  }
+
+  .ticket {
+    padding: 12px;
+  }
+
+  /* 교사 진행 창 */
+  #tdr {
+    top: 110px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    width: auto;
+    padding: 10px;
+  }
+}
+
+/* 아주 작은 휴대폰 */
+@media (max-width: 380px) {
+  .term {
+    padding: 10px;
+  }
+
+  .mk b {
+    font-size: 0.62rem;
+  }
+
+  .pg {
+    width: 100px;
+  }
+}
+
+</style></head><body>
+<div id="bg"></div>
+
+<div id="goal">
+    <b>학습 목표</b><br>
+    1. 서아시아 각 지역에서 나타난 국민 국가 건설 운동의 전개 과정과 주요 특징을 설명할 수 있다.<br>
+    2. 서아시아의 국민 국가 건설 과정에서 나타난 내부적 개혁의 한계와 제국주의 열강의 간섭을 분석할 수 있다.
+</div>
+
+<header id="hud"></header>
+<main id="app"></main>
+<div id="ov"></div>
+<div id="toast"></div>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,signInAnonymously,signInWithEmailAndPassword,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,doc,setDoc,updateDoc,getDoc,getDocs,deleteDoc,onSnapshot,collection,collectionGroup,addDoc,query,where,runTransaction}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ▼ 기존 Firebase 프로젝트 설정값을 붙여 넣으세요 (Auth: 익명 + 이메일/비밀번호 사용 설정) */
+import { CFG } from "./firebase-config.js";
+const fb=initializeApp(CFG),auth=getAuth(fb),db=getFirestore(fb);
+
+/* ▼ 교과서 쪽수는 사용 중인 교과서에 맞게 수정하세요 */
+const R=[
+{id:1,n:'아라비아반도',t:'사우디 왕국의 탄생',e:'🏜️',g:'#ffe8b8',pg:'교과서 p.170',keys:['와하브 운동은 무엇을 주장했을까?','무함마드 이븐 사우드와 와하브 운동의 결합','1932년 왕국 수립 과정'],b:'서아시아 내부의 종교·정치적 변화',bi:'🕌',
+ mc:{q:'18세기 중엽 아라비아반도에서 이슬람 초기의 순수한 신앙으로 돌아가자며 일어난 운동은?',o:['탄지마트','와하브 운동','아라비 운동','입헌 혁명'],h:'"이슬람 원리 회복" 운동이에요. 교과서 소제목을 찾아보세요.'},
+ sa:{q:'1932년 사우드 가문이 아라비아반도에 세운 나라의 이름은?',h:'나라 이름에 "사우드 가문"이 들어 있어요.'}},
+{id:2,n:'이집트',t:'근대화와 민족 운동',e:'🔺',g:'#ffd9c2',pg:'교과서 p.171',keys:['무함마드 알리의 개혁 내용','수에즈 운하와 재정 악화','아라비 운동과 영국의 점령'],b:'근대화와 서구 열강의 경제적 간섭',bi:'⚓',
+ mc:{q:'이집트에서 무함마드 알리가 추진한 개혁으로 알맞은 것은?',o:['군대·교육·산업의 근대화','서구 문물 전면 배척','술탄에게 통치권 반납','수에즈 운하를 영국에 무상 양도'],h:'"위로부터의 개혁"! 군대와 공장, 학교 이야기를 찾아보세요.'},
+ sa:{q:'1882년 "이집트인을 위한 이집트"를 외친 아라비 운동을 진압하고 이집트를 사실상 점령한 나라는?',h:'수에즈 운하 주식을 사들인 그 나라예요.'}},
+{id:3,n:'오스만 제국',t:'위기 속에서의 개혁 추진',e:'🕌',g:'#d9e8ff',pg:'교과서 p.172',keys:['탄지마트의 목적과 내용','1876년 헌법 제정과 중단','청년 튀르크당 혁명'],b:'입헌 정치와 정치 개혁의 요구',bi:'📜',
+ mc:{q:'1839년부터 오스만 제국이 추진한 서구식 근대 개혁은?',o:['와하브 운동','탄지마트','담배 불매 운동','파쇼다 사건'],h:'터키어로 "재조직"이라는 뜻이에요.'},
+ sa:{q:'입헌 정치를 요구하며 봉기한 청년 장교들의 명칭은?',h:'민족의 이름이 붙었어요, 청년 ㅇㅇㅇㅇ"'}},
+{id:4,n:'이란',t:'전제 정치와 열강에 맞선 입헌 혁명',e:'🏛️',g:'#e5f5e0',pg:'교과서 p.173',keys:['카자르 왕조의 이권 양도','1891년 담배 불매 운동','입헌 혁명과 영·러 협정'],b:'민중의 저항과 외세의 개입',bi:'✊',
+ mc:{q:'1891년 이란에서 담배 이권 양도에 반대해 민중이 벌인 저항은?',o:['담배 불매 운동','와하브 운동','탄지마트','파쇼다 사건'],h:'사지 않고 피우지 않는 방식의 저항이었어요.'},
+ sa:{q:'1907년 협정으로 이란을 자기들의 세력권으로 나눈 두 나라는? (○○, ○○○)',h:'두 나라 이름을 모두 써 보세요. 북쪽은 러시아, 남쪽은 …?'}}];
+const DEF={open:1,go:0,discussion:false,final:false,quizOn:false,quizQ:0,quizExp:false,depart:false};
+const WE=['제국주의: 강대국이 식민지를 얻기 위해 군사력과 경제력을 앞세워 영토와 시장을 넓힌 정책이에요.','파쇼다 사건(1898): 영국의 아프리카 종단 정책과 프랑스의 횡단 정책이 수단의 파쇼다에서 충돌했어요.','플랜테이션: 원주민 노동력을 동원해 차·고무·커피 등 상품 작물을 대량 재배하는 대농장이에요.'];
+const WQ=['식민지를 확보하기 위해 군사력·경제력을 앞세워 추진한 대외 팽창 정책은 무엇인가?','카이로-케이프타운을 연결하려는 영국의 구상과 아프리카 동서 연결을 추진한 프랑스의 구상이 충돌한 사건은 무엇인가?','원주민을 동원해 차와 고무 등을 대량 생산하는 농장 형태는 무엇인가?'];
+const ST=[['e','🏆','증거왕'],['s','⚡','날카로운 반박'],['w','💡','재치있는 생각']];
+const VP=['서구 제도·기술의 수용','내부 개혁가와 민중의 역할','열강 개입의 영향'];
+const $=s=>document.querySelector(s),app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=t=>t?new Date(t).toLocaleString('ko-KR'):'-';
+const norm=s=>s.replace(/\s/g,'').toLowerCase();
+const hit=(s,acc)=>acc.some(a=>Array.isArray(a)?a.every(x=>norm(s).includes(x)):norm(s).includes(a));
+const full=b=>[1,2,3,4].every(i=>b?.['b'+i]);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600)}
+function burst(x=innerWidth/2,y=innerHeight/2,em=['⭐','✨','🎉','🌟']){for(let i=0;i<10;i++){const s=document.createElement('span');s.className='fx';s.textContent=em[i%em.length];s.style.left=x+(Math.random()-.5)*160+'px';s.style.top=y+'px';s.style.animationDelay=Math.random()*.3+'s';document.body.append(s);setTimeout(()=>s.remove(),1700)}}
+function tick(){const p=document.createElement('div')}
+
+/* ====================== 일러스트 에셋 (assets/파일명.png 를 넣으면 자동으로 SVG 대신 표시됨) ====================== */
+const A = f => {
+  const files = {
+  "bg-title": "title-bg",
+  "bg-1": "bg-arabia",
+  "bg-2": "bg-egypt",
+  "bg-3": "bg-ottoman",
+  "bg-4": "bg-iran",
+
+  "map": "west-asia-map",
+
+  "npc-1": "npc-arabia",
+  "npc-2": "npc-egypt",
+  "npc-3": "npc-ottoman",
+  "npc-4": "npc-iran",
+
+  "badge-1": "badge-arabia",
+  "badge-2": "badge-egypt",
+  "badge-3": "badge-ottoman",
+  "badge-4": "badge-iran"
+};
+
+  const folder = f.startsWith("bg-")
+    ? "backgrounds"
+    : f === "map"
+    ? "maps"
+    : f.startsWith("badge")
+    ? "badges"
+    : f.startsWith("obj")
+    ? "objects"
+    : "characters";
+
+  return `assets/${folder}/${files[f] || f}.png`;
+};
+const AS=(f,svg,c='')=>
+  `<span class="art ${c}">
+    ${svg}
+    <img
+      src="${f==='bg-quiz' ? './assets/backgrounds/quiz-bg.png' : (typeof A==='function' ? A(f) : '')}"
+      alt=""
+      onload="this.previousElementSibling.style.display='none'"
+      onerror="this.remove()"
+    >
+  </span>`;
+;
+const SV=b=>`<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">${b}</svg>`;
+const LG=(id,a,b)=>`<defs><linearGradient id="${id}" x2="0" y2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="1600" height="900" fill="url(#${id})" />`;
+const dm=(x,y,r,c)=>`<path d="M${x-r} ${y}a${r} ${r} 0 0 1 ${2*r} 0z" fill="${c}"/><rect x="${x-1}" y="${y-r-18}" width="3" height="18" fill="#c9a227" />`;
+const mn=(x,y,h,c)=>`<rect x="${x-9}" y="${y-h}" width="18" height="${h}" fill="${c}" /><path d="M${x-12} ${y-h}l12-34 12 34z" fill="#2b6f77"/>`;
+const palm=(x,y,s=1)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0q8-60 0-120" stroke="#8a5a2b" stroke-width="9" fill="none"/><g fill="#3f9b6a"><path d="M0-120q-60-20-90 20q50-30 90-20z"/><path d="M0-120q60-20 90 20q-50-30-90-20z"/><path d="M0-120q-30-50-80-40q50 0 80 40z"/><path d="M0-120q30-50 80-40q-50 0-80 40z"/></g></g>`;
+const tent=(x,y,s,c)=>`<path d="M${x} ${y}l${-60*s} 0 ${60*s} ${-70*s} ${60*s} ${70*s}z" fill="${c}"/><path d="M${x} ${y}l${-14*s} 0 ${14*s} ${-40*s} ${14*s} ${40*s}z" fill="#5b3b2a"/>`;
+const cols=(x,y,n,w,h)=>[...Array(n)].map((_,i)=>`<rect x="${x+i*w}" y="${y}" width="${w*.4}" height="${h}" fill="#fff" stroke="#c9b88f" />`).join('');
+const SC={
+1:()=>SV(LG('a','#7fcbe8','#ffe1ad')+`<circle cx="1280" cy="190" r="90" fill="#fff1b0" /><path d="M0 520q300-90 600-20t600-30 400 40v390H0z" fill="#f0c882"/><rect x="880" y="430" width="340" height="100" fill="#f7e2b6" />${dm(950,430,32,'#2b8a8f')}${dm(1090,430,42,'#2b8a8f')}${mn(1020,430,80,'#f7e2b6')}${mn(1190,430,90,'#f7e2b6')}<path d="M0 650q260-90 640-30t960-40v320H0z" fill="#e8b868"/><ellipse cx="1060" cy="770" rx="240" ry="46" fill="#58b7c9" />${palm(900,780,1.1)}${palm(1230,770,1.3)}${palm(1130,760,.8)}${tent(220,760,2.2,'#f4ead2')}${tent(430,790,1.6,'#d98c5f')}<path d="M330 800l10-30 10 30z" fill="#e8562a"/>`),
+2:()=>SV(LG('b','#8fd6f2','#fff0c8')+`<circle cx="300" cy="170" r="80" fill="#fff3b8" /><path d="M200 520l120-170 120 170zM400 520l90-120 90 120z" fill="#e4bf86"/>${mn(900,520,110,'#f3e3bd')}${mn(1010,520,90,'#f3e3bd')}${mn(1330,520,120,'#f3e3bd')}${dm(960,520,50,'#2b8a8f')}${dm(1230,520,60,'#2b8a8f')}<rect y="530" width="1600" height="370" fill="#efd197" /><path d="M730 530h140L1260 900H340z" fill="#2f97c4"/><path d="M760 560h80l300 340H560z" fill="#56b9dd" opacity=".6"/><path d="M560 730h470l-70 80H640z" fill="#b83a30"/><rect x="600" y="670" width="90" height="60" fill="#f4b942" /><rect x="700" y="670" width="90" height="60" fill="#3a7bd5" /><rect x="800" y="670" width="90" height="60" fill="#4caf7d" /><rect x="920" y="640" width="70" height="90" fill="#fff" /><rect x="935" y="655" width="40" height="14" fill="#2f97c4" /><rect x="890" y="600" width="14" height="45" fill="#555" />${palm(250,860,1.4)}${palm(1450,880,1.5)}<text x="800" y="870" font-size="44" fill="#0f4c5c" text-anchor="middle" font-weight="800">수에즈 운하</text>`),
+3:()=>SV(LG('c','#f5c6a0','#9db7e0')+`<circle cx="1300" cy="140" r="70" fill="#fff1c9" /><rect y="700" width="1600" height="200" fill="#3d7fae" /><path d="M0 760q100-20 200 0t200 0 200 0 200 0 200 0 200 0 200 0 200 0" stroke="#fff" stroke-opacity=".4" stroke-width="6" fill="none"/><rect x="20" y="470" width="520" height="230" fill="#e9d9b8" />${dm(130,470,70,'#2b8a8f')}${dm(330,470,55,'#2b8a8f')}${mn(40,470,200,'#f1e6cf')}${mn(540,470,170,'#f1e6cf')}<rect x="620" y="640" width="580" height="60" fill="#cdb98f" /><rect x="660" y="590" width="500" height="50" fill="#d9c6a0" /><rect x="680" y="420" width="460" height="170" fill="#f4ead2" /><path d="M660 420h500L910 340z" fill="#e2d1aa"/>${cols(700,430,7,66,160)}${dm(910,340,95,'#2b8a8f')}<rect x="908" y="130" width="4" height="60" fill="#555" /><path d="M912 130l60 16-60 16z" fill="#c0392b"/><text x="910" y="405" font-size="30" fill="#6b5a35" text-anchor="middle" font-weight="800">의회</text><rect x="1280" y="520" width="320" height="180" fill="#a89a7a" />${[0,1,2,3,4].map(i=>`<rect x="${1280+i*64}" y="496" width="36" height="26" fill="#a89a7a" />`).join('')}<rect x="1330" y="600" width="100" height="16" fill="#333" /><circle cx="1350" cy="640" r="22" fill="#6b4a2f" />`),
+4:()=>SV(LG('d','#ffd9a8','#f7efd8')+`<path d="M0 420l200-190 140 120 180-170 220 200 200-150 240 170 220-130v330H0z" fill="#b9a3c9"/><path d="M200 230l-34 36h68zM520 180l-34 36h68zM1000 270l-34 36h68z" fill="#fff"/><rect y="520" width="1600" height="380" fill="#e6c9a0" /><rect x="920" y="330" width="460" height="230" fill="#f1e6cf" /><rect x="920" y="330" width="460" height="28" fill="#2a8fa8" />${cols(950,370,6,70,170)}${dm(1150,330,70,'#2a8fa8')}<text x="1150" y="355" font-size="26" fill="#fff" text-anchor="middle" font-weight="800">의회</text><rect x="900" y="560" width="500" height="30" fill="#d9c6a0" />${[0,1,2,3,4].map(i=>`<path d="M${40+i*84} 600h84l-12 40h-60z" fill="${['#d9534f','#f4b942','#2a8fa8','#4caf7d','#9b59b6'][i]}" />`).join('')}<rect x="40" y="640" width="420" height="90" fill="#8a5a2b" /><path d="M520 560h120v200H520z" fill="#c2693f"/><path d="M560 600h40v120h-40z" fill="#d9534f"/><path d="M0 900V430a150 150 0 0 1 300 0V900z" fill="#8a4a2f" opacity=".85"/>`),
+title:()=>SV(LG('t','#bfe6f5','#fff3d6')+`<circle cx="1250" cy="170" r="90" fill="#fff1b0" /><ellipse cx="300" cy="170" rx="130" ry="40" fill="#fff" opacity=".9" /><ellipse cx="420" cy="150" rx="90" ry="34" fill="#fff" opacity=".9" /><path d="M0 640q300-140 640-40t960-80v380H0z" fill="#f0c882"/><path d="M0 760q400-120 800-30t800-50v220H0z" fill="#e0b46a"/>${palm(1300,780,1.2)}${tent(260,800,1.8,'#f4ead2')}`),
+tm:()=>SV(LG('e','#0f4c5c','#1b2a49')+[...Array(30)].map(()=>`<circle cx="${Math.random()*1600|0}" cy="${Math.random()*600|0}" r="${1+Math.random()*3|0}" fill="#fff" opacity=".7" />`).join('')+[380,300,220,140].map((r,i)=>`<circle cx="800" cy="420" r="${r}" fill="none" stroke="#e0a82e" stroke-width="${14-i*3}" ${i%2?'stroke-dasharray="30 14"':''} />`).join('')+`<circle cx="800" cy="420" r="120" fill="#a9dcf0" opacity=".35" /><path d="M0 760h1600v140H0z" fill="#10303a"/>`),
+plaza:()=>SV(LG('f','#bfe6f5','#fff3d6')+`<g fill="#f3e6c8" stroke="#d9c79b" stroke-width="3"><rect x="100" y="300" width="360" height="300" /><rect x="1140" y="260" width="380" height="340" /><rect x="560" y="360" width="480" height="240" /></g>${dm(280,300,70,'#2b8a8f')}${dm(1330,260,80,'#2b8a8f')}${dm(800,360,90,'#e0a82e')}<path d="M0 110h1600" stroke="#0f4c5c" stroke-width="4"/>${[...Array(20)].map((_,i)=>`<path d="M${i*80+10} 110l30 0-15 40z" fill="${['#e0a82e','#1d7a85','#d9534f','#a9dcf0'][i%4]}" />`).join('')}<rect y="600" width="1600" height="300" fill="#e8c98f" />${[...Array(8)].map((_,i)=>`<path d="M${i*200} 900L${800+(i-4)*60} 600" stroke="#d2b177" stroke-width="3"/>`).join('')}`),
+desk:()=>SV(LG('h','#6b4a2f','#3b2616')),
+cap:()=>`<svg viewBox="0 0 200 260"><rect x="30" y="20" width="140" height="200" rx="40" fill="#e0a82e" stroke="#8a6414" stroke-width="6" /><rect x="52" y="44" width="96" height="120" rx="28" fill="#a9dcf0" /><circle cx="100" cy="190" r="14" fill="#0f4c5c" /><rect x="50" y="224" width="100" height="14" rx="6" fill="#0f4c5c" /></svg>`,
+map:()=>`<svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice"><rect width="1000" height="600" fill="#9fd6ee" /><path d="M0 230L120 222 200 236 262 248 300 262 305 285 285 300 275 320 340 430 400 520 440 570V600H0z" fill="#f1d9a0" stroke="#c9a35a" stroke-width="3"/><path d="M300 262L300 205 320 148 240 140 160 148 120 100 180 68 240 56 300 52 420 68 540 50V0H1000V342L840 342 730 316 640 290 560 256 560 270 620 342 720 342 796 385 740 453 640 496 500 553 464 555 440 496 380 410 320 325z" fill="#f1d9a0" stroke="#c9a35a" stroke-width="3"/><ellipse cx="290" cy="20" rx="130" ry="40" fill="#9fd6ee" /><ellipse cx="620" cy="40" rx="50" ry="100" fill="#9fd6ee" /><path d="M222 230Q215 380 225 520" stroke="#5fb4d6" stroke-width="8" fill="none"/><path d="M256 248L262 292" stroke="#5fb4d6" stroke-width="7"/><g fill="#3d7fae" font-size="18" font-style="italic"><text x="70" y="150">지중해</text><text x="355" y="400" transform="rotate(62 355 400)">홍해</text><text x="260" y="22">흑해</text><text x="590" y="50">카스피해</text><text x="640" y="268">페르시아만</text></g></svg>`};
+const person=o=>`<svg viewBox="0 0 120 200"><ellipse cx="60" cy="192" rx="36" ry="7" fill="#0003" /><path d="M28 190v-70q0-30 32-30t32 30v70z" fill="${o.cl}"/><path d="M60 94v96" stroke="${o.tr}" stroke-width="5"/><circle cx="60" cy="62" r="34" fill="${o.sk}" />${o.hat}<circle cx="48" cy="64" r="5" fill="#2a2a28" /><circle cx="72" cy="64" r="5" fill="#2a2a28" /><circle cx="46" cy="62" r="1.8" fill="#fff" /><circle cx="70" cy="62" r="1.8" fill="#fff" /><path d="M52 78q8 7 16 0" stroke="#2a2a28" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="40" cy="74" r="6" fill="#ff9fa8" opacity=".5" /><circle cx="80" cy="74" r="6" fill="#ff9fa8" opacity=".5" /></svg>`;
+const TR={sk:'#f0c9a0',cl:'#1d7a85',tr:'#e0a82e',hat:'<path d="M28 52q4-36 32-36t32 36z" fill="#e0a82e"/><rect x="26" y="48" width="68" height="8" rx="4" fill="#0f4c5c" /><circle cx="60" cy="34" r="10" fill="#a9dcf0" stroke="#0f4c5c" stroke-width="3" />'};
+const FZ='<path d="M36 38h48l-6-24h-36z" fill="#c0392b"/><rect x="58" y="6" width="4" height="10" fill="#222" />';
+const sym=i=>({
+  1:`
+    <path d="M4-19a19 19 0 1 0 0 38A16 16 0 0 1 4-19Z"
+      fill="#fff"/>
+    <path d="M13-17l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z"
+      fill="#f8df9a"/>
+  `,
+  2:`
+    <path d="M-21 15L0-19 21 15Z"
+      fill="#fff" stroke="#fff" stroke-width="1.5"/>
+    <path d="M0-19V15M-10 0H10M-16 8H16"
+      stroke="#c99d42" stroke-width="1.8" fill="none"/>
+    <path d="M-25 20Q-13 14 0 20T25 20"
+      stroke="#fff" stroke-width="2.5" fill="none"/>
+  `,
+  3:`
+    <path d="M-20 5Q-20-9 0-21Q20-9 20 5Z"
+      fill="#fff"/>
+    <path d="M-24 7H24V14H-24Z" fill="#fff"/>
+    <path d="M-15 15V21M0 15V21M15 15V21"
+      stroke="#fff" stroke-width="3"/>
+    <path d="M0-21V-26"
+      stroke="#f8df9a" stroke-width="2"/>
+  `,
+  4:`
+    <path d="M-20 21V-5Q-20-23 0-23Q20-23 20-5V21H11V-5Q11-14 0-14Q-11-14-11-5V21Z"
+      fill="#fff"/>
+    <path d="M-25 22H25"
+      stroke="#fff" stroke-width="3"/>
+    <path d="M0-22V-16"
+      stroke="#f8df9a" stroke-width="2"/>
+  `
+})[i];
+const COL={1:'#e0a82e',2:'#2f97c4',3:'#b34a5a',4:'#3aa07c'};
+const bdg=i=>`<svg viewBox="-60 -60 120 120"><circle r="56" fill="${COL[i]}" stroke="#fff" stroke-width="5" /><circle r="46" fill="none" stroke="#ffe08a" stroke-width="3" stroke-dasharray="4 5" /><g transform="scale(1.5)">${sym(i)}</g></svg>`;
+const ico=t=>`<svg viewBox="0 0 100 100">${({scroll:'<rect x="22" y="18" width="56" height="64" rx="8" fill="#fff3d1" stroke="#8a6414" stroke-width="4" /><path d="M32 36h36M32 48h36M32 60h24" stroke="#8a6414" stroke-width="4"/><circle cx="22" cy="50" r="9" fill="#e0a82e" />',coin:'<circle cx="50" cy="50" r="34" fill="#e0a82e" stroke="#8a6414" stroke-width="5" /><circle cx="50" cy="50" r="22" fill="none" stroke="#8a6414" stroke-width="3" /><path d="M42 54a10 10 0 1 0 8-14a8 8 0 1 1-8 14z" fill="#8a6414"/>',map:'<path d="M12 24l26-8 26 8 24-8v60l-24 8-26-8-26 8z" fill="#fff3d1" stroke="#8a6414" stroke-width="4"/><path d="M38 16v60M64 24v60" stroke="#8a6414" stroke-width="3"/><path d="M48 46l8 8m0-8l-8 8" stroke="#d9534f" stroke-width="5"/>',ship:'<path d="M12 60h76l-12 22H26z" fill="#b83a30" /><rect x="30" y="38" width="40" height="22" fill="#fff" stroke="#555" stroke-width="3" /><rect x="46" y="22" width="12" height="16" fill="#e0a82e" />',building:'<path d="M12 44h76L50 18z" fill="#e2d1aa" stroke="#8a6414" stroke-width="3"/><rect x="18" y="46" width="64" height="36" fill="#f4ead2" stroke="#8a6414" stroke-width="3" />'+[0,1,2,3].map(k=>`<rect x="${24+k*15}" y="50" width="7" height="28" fill="#fff" stroke="#8a6414" />`).join('')+'<path d="M38 18a12 12 0 0 1 24 0z" fill="#2b8a8f" />',crate:'<rect x="16" y="30" width="68" height="52" fill="#c98f52" stroke="#6b4a2f" stroke-width="4" /><path d="M16 46h68M16 62h68M34 30v52M66 30v52" stroke="#6b4a2f" stroke-width="3"/>'})[t]}</svg>`;
+const CON={1:'와하브 운동 · 사우디아라비아 왕국(1932)',2:'무함마드 알리의 개혁 · 수에즈 운하',3:'탄지마트(1839~1876) · 청년 튀르크당 · 입헌 정치',4:'담배 불매 운동(1891) · 입헌 혁명(1906) ·영·러 개입'};
+const X={
+1:{c:COL[1],era:'18세기 ~ 1932년',np:{nm:'상인 살림',sk:'#e0ac80',cl:'#f4ead2',tr:'#c9a227',hat:'<path d="M24 62q0-42 36-42t36 42q-18-20-36-20t-36 20z" fill="#fff"/><path d="M26 44q34-16 68 0" stroke="#222" stroke-width="6" fill="none"/>'},x:22,y:90,
+ L:['반가워, 시간 여행자!<br>18세기 이후 이 사막에서 이슬람 초기의 순수한 신앙으로 돌아가자는 운동이 일어났어.','사우드 가문이 이 운동을 지원하면서 사우디 왕국을 세우고 아라비아반도의 주요 지역을 점령했지..','오스만 제국의 공격으로 사우디 왕국은 멸망했지만, 이 운동 정신은 1932년에 수립된 사우디아라비아 왕국의 건국 이념이 되었어!','자, 그럼 이 운동이 뭔지. 주변을 조사해볼까?'],
+ rq:'위기의 오스만 제국, 이를 극복하기 위해서 누구의 도움을 받았을까? 교과서에서 찾아봐!',
+ O:[{n:'낡은 두루마리',i:'scroll',x:46,y:52,t:'mc',d:'오아시스 야영지에 남은 기록이다. 18세기 이후 사막에서 일어난 종교 개혁 운동이 적혀 있다.'},{n:'왕국의 동전',i:'coin',x:68,y:62,t:'sa',d:'1932년 새 왕국이 세워지며 만들어진 동전이다. 나라 이름이 새겨져 있다.'},{n:'오아시스 지도',i:'map',x:84,y:46,t:'rd',d:'야영지와 도시를 잇는 길이 그려진 지도다.'}]},
+2:{c:COL[2],era:'19세기 ~ 20세기 초',np:{nm:'기술자 아흐메드',sk:'#d9a577',cl:'#4a6fa5',tr:'#e0a82e',hat:FZ},x:10,y:90,
+ L:['안녕! 이집트는 오스만 제국의 지배 아래 있다 나폴레옹의 침략을 받았어.','나폴레옹이 몰락하고 이후 총독은 공장, 학교, 무기, 군대 등 근대적 개혁을 추진했지.','1869년 수에즈 운하가 열렸지만 이집트는 막대한 빚을 졌고,<br>영국이 운하 주식을 사들이며 간섭이 커졌지.','아라비는 "이집트인의 이집트"를 외쳤지만,<br>영국은 군대를 보내 이집트를 침공하고 보호령으로 삼았어','그럼 우린 수에즈 운하 주변을 살펴볼까?'],
+ rq:'수에즈 운하 공사 이후 이집트는 어떤 어려움을 겪고 어떤 상황을 맞이했는지 교과서에서 찾아서 써봐!',
+ O:[{n:'개혁 설계도',i:'map',x:36,y:48,t:'mc',d:'무함마드 알리 시대의 근대화 계획이 담긴 설계도다.'},{n:'수에즈 운하 문서',i:'ship',x:52,y:68,t:'sa',d:'운하의 주식과 이집트의 빚, 그리고 1882년의 사건이 적혀 있다.'},{n:'목화 상자',i:'crate',x:80,y:62,t:'rd',d:'이집트의 목화는 유럽으로 팔려 나갔다.'}]},
+3:{c:COL[3],era:'1839년 ~ 1908년',np:{nm:'개혁가 미드하트',sk:'#e0ac80',cl:'#2f3e5c',tr:'#e0a82e',hat:FZ+'<path d="M46 76q14-8 28 0" stroke="#3b2a1a" stroke-width="5" fill="none"/>'},x:10,y:92,
+ L:['반가워, 여행자! 제국이 기울자 1839년에 근대적 개혁을 시행했어.','개혁가들은 1876년 오스만 제국 최초의 헌법을 만들고 의회를 열었지만,<br>얼마 못 가 술탄이 정지시켰지..','1908년 혁명으로 헌법이 다시 부활하고 근대화를 추진했지.<br>자, 그럼 의회 건물과 헌법 문서를 조사해볼까?'],
+ rq:'교과서에서 1908년 청년 튀르크당 혁명 이후 헌법이 어떻게 되었는지 찾아 써 보세요.',
+ O:[{n:'개혁 칙령',i:'scroll',x:40,y:42,t:'mc',d:"튀르크어로 '개혁'을 의미하기도 하지."},{n:'헌법 문서',i:'scroll',x:60,y:56,t:'sa',d:'1876년 제정된 오스만 최초의 헌법 문서다.'},{n:'의회 건물',i:'building',x:75,y:34,t:'rd',d:'헌법과 의회를 요구한 사람들이 모이던 건물이다.'}]},
+4:{c:COL[4],era:'1891년 ~ 1907년',np:{nm:'바자르 상인 호세인',sk:'#d9a577',cl:'#7a4a8c',tr:'#e0a82e',hat:'<path d="M36 40q0-34 24-34t24 34z" fill="#4a3426"/>'},x:10,y:100,
+ L:['어서 와! 당시 이란 왕은 열강의 압력에 굴복해 각종 이권을 외국에 넘겼고,<br>이에 이란 전역에서 분노를 일으켰어.','1891년 담배 이권을 넘긴 것에 대해 민중이 반발했어.','1906년 의회를 개설하고자 하는 혁명이 일어났지만,<br>결국 열강의 개입으로 무산됐어.','자, 그럼 협정 지도와 의회 건물을 조사해볼까?'],
+ rq:'교과서에서 서양 열강의 간섭이 더욱 거세진 이유를 찾아 써 보세요.',
+ O:[{n:'담배 상자',i:'crate',x:42,y:58,t:'mc',d:'담배 이권을 둘러싼 민중의 저항을 보여 주는 상자다.'},{n:'협정 지도',i:'map',x:62,y:50,t:'sa',d:'1907년 두 나라가 이란을 나눈 선이 그려진 지도다.'},{n:'의회 건물',i:'building',x:78,y:36,t:'rd',d:'입헌 혁명의 결과로 세워진 의회 건물이다.'}]}};
+[1,2,3,4].forEach(i=>{
+  X[i].np={...TR,nm:'여행자',cl:COL[i]}
+});
+let mute=false,AC;const snd=()=>{if(mute)return;try{AC=AC||new AudioContext();[523,659,784,1047].forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.1;o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.start(t);o.stop(t+.3)})}catch(e){}};
+const setBg=(svg,f)=>{
+  const isRegion = /^bg-[1-4]$/.test(f);
+  $('#bg').innerHTML = AS(f, svg, isRegion ? 'bgc region-bg' : 'bgc');
+};
+
+/* ====================== 교사 화면 (#teacher) ====================== */
+if(location.hash==='#teacher')teacher();else student(false);
+
+function teacher(){
+ app.innerHTML=`<div class=term style="max-width:420px"><h2>👩‍🏫 교사 로그인</h2><input id=em type=email placeholder=이메일><input id=pw type=password placeholder=비밀번호><button class="btn go" id=lg>로그인</button><p id=er class=no></p></div>`;
+ let started=false;const enter=async u=>{if(started)return;started=true;
+  if(!(await getDoc(doc(db,'admins',u.uid))).exists()){started=false;await signOut(auth);$('#er').textContent='교사 권한이 없는 계정입니다.';return}student(true)};
+ $('#lg').onclick=async()=>{try{enter((await signInWithEmailAndPassword(auth,$('#em').value,$('#pw').value)).user)}catch(e){$('#er').textContent='로그인 실패'}};
+ onAuthStateChanged(auth,u=>{if(u&&!u.isAnonymous)enter(u)})}
+/* ====================== 학생 화면 (교사 진행 모드도 동일 화면 사용) ====================== */
+function student(T=false){
+ let me,S=null,st={...DEF},scr='reg',cur=1,myV={},P=[],CM=[],talkOn=false,cards={},editing=new Set(),AW={},PR={},QV=['','',''],tdraw=()=>{};
+ let switchingAccount=false;
+ const ful=()=>[1,2,3,4].every(i=>AW['b'+i]),cnt=()=>[1,2,3,4].filter(i=>AW['b'+i]).length;
+ const qd=()=>!!PR.q&&['q0','q1','q2'].every(k=>PR.q[k]!==undefined);
+ const canMap=()=>T||(qd()&&st.depart),canTalk=()=>T||(ful()&&st.discussion);
+ const pct=()=>Math.round(R.reduce((a,r)=>{const d=PR['r'+r.id]||{};return a+(AW['b'+r.id]?4:[d.n,d.mc!==undefined,d.sa!==undefined,d.rd!==undefined].filter(Boolean).length)},0)/16*100);
+ onAuthStateChanged(auth,async u=>{
+  if(!u){
+  if(!T&&!switchingAccount)signInAnonymously(auth);
+  return;
+}if(me===u.uid)return;me=u.uid;
+  const d=await getDoc(doc(db,'students',me));if(d.exists()){S={...d.data(),badges:AW};scr='warm'}
+  onSnapshot(doc(db,'state','session'),d=>{const o=st;st={...DEF,...(d.data()||{})};tdraw();
+   if(st.final && S && scr !== 'end') go('end');
+   else if(st.discussion&&!o.discussion&&ful()&&!['end','mission','reg'].includes(scr)){toast('🎉 토론장이 열렸어요!');go('talk')}
+   else if(['warm','map','badges'].includes(scr)&&['quizOn','quizQ','quizExp','depart','open','go','discussion'].some(k=>o[k]!==st[k]))render();
+   else if(scr==='mission'&&!T&&cur>st.go&&o.go!==st.go)go('map');else nav()});
+  onSnapshot(doc(db,'students',me),d=>{
+  if(!d.exists())return;
+  S={...d.data(),badges:AW};
+
+  if(!T && st.final && scr!=='end'){
+    go('end');
+  }else{
+    nav();
+  }
+  
+});
+  onSnapshot(collection(db,'students',me,'awards'),s=>{AW={};s.docs.forEach(x=>AW[x.id]=true);if(S)S.badges=AW;nav();if(['map','badges'].includes(scr))render()});
+  onSnapshot(collection(db,'students',me,'progress'),s=>{PR={};s.docs.forEach(x=>PR[x.id]=x.data());nav();if(scr==='warm')render()});
+  onSnapshot(query(collection(db,'votes'),where('uid','==',me)),s=>{myV={};s.docs.forEach(d=>myV[d.data().postId]=d.data().type);paint()});
+  if(T)tmode();render()});
+ const go=n=>{scr=n;render()};
+ function nav(){const on=!!S&&scr!=='reg',n=cnt(),tb=T?'<button class="btn go" id=tm>교사 진행 모드</button>':'';
+  const loc={warm:['시간 여행 준비','출발 전'],map:['서아시아 탐험 지도','19~20세기'],mission:[R[cur-1].n,X[cur].era],badges:['탐험 도감',''],talk:['시간의 광장','공동 토론'],end:['시간 여행의 끝','']}[scr]||['',''];
+  $('#hud').innerHTML=on?`<div class=loc><b>${loc[0]}</b><small>${loc[1]}</small></div><div class=pg><i style="width:${pct()}%"></i><span>탐험 ${pct()}%</span></div><span class=bc>★ 배지 ${n}/4</span><button class="btn alt" data-g=map ${canMap()?'':'disabled'}>지도</button><button class="btn alt" id=ml>미션 목록</button><button class="btn alt" data-g=badges ${canMap()?'':'disabled'}>도감</button><button class="btn alt" data-g=talk ${canTalk()?'':'disabled'}>토론장${canTalk()?'':' 🔒'}</button>
+<button class="btn alt" data-g=end>끝</button>
+<button class="btn alt" id=home>처음 화면</button><button class="btn alt" id=sd>소리 ${mute?'끔':'켬'}</button><button class="btn alt" id=fs>전체화면</button>${tb}<div id=mlp hidden>${R.map(r=>`<button class=row2 data-m=${r.id}>${AW['b'+r.id]?'★ 완료':r.id>st.open?'🔒 대기':'▶ 진행'} · ${r.n}</button>`).join('')}</div>`:tb;
+  if(T&&$('#tm'))$('#tm').onclick=()=>{$('#tdr').hidden=!$('#tdr').hidden};
+  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>go(b.dataset.g));
+  if(!on)return;$('#home').onclick=()=>go('reg');$('#ml').onclick=()=>$('#mlp').hidden=!$('#mlp').hidden;
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{cur=+b.dataset.m;if(!canMap())return toast('먼저 전시학습을 마쳐 주세요');cur>st.go&&!T?toast('🔒 선생님이 아직 열지 않았어요'):go('mission')});
+  $('#sd').onclick=()=>{mute=!mute;nav()};$('#fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.()}
+ function render(){if(!S)scr='reg';
+  if(!T){if(['map','mission','badges'].includes(scr)&&!canMap())scr='warm';if(scr==='talk'&&!canTalk())scr='map'}
+  document.querySelectorAll('#dlg,.modal').forEach(e=>e.remove());$('#ov').innerHTML='';app.className=['map','mission'].includes(scr)?'world':'';nav();
+  ({reg:vReg,warm:vWarm,flags:vFlags,map:vMap,mission:vMission,badges:vBadges,talk:vTalk,end:vEnd})[scr]()
+ }
+ 
+function vReg(){
+  setBg(SC.title(),'bg-title');
+
+  app.innerHTML=`
+    <div class=title>
+      <div class=tbox>
+        <h1>HISTORY<br>DETECTIVE</h1>
+        <p>서아시아의 국민 국가 건설 운동 · 시간 여행 탐험</p>
+        <div class="who">
+          <img class="login-character"
+               src="./assets/characters/login-character.png"
+               alt="시간 여행 안내자">
+        </div>
+
+        <input id=nk maxlength=12
+          placeholder="시간 여행자 닉네임"
+          value="${esc(S?.nickname||'')}">
+
+        <button class="btn go" id=sg>
+          ${S?'탐험 이어하기':'탐험 등록'}
+        </button>
+
+        <button class="btn alt" id=newRun>
+          새 탐험 시작
+        </button>
+
+        ${S?'<p class=small>기존 탐험 기록과 배지는 그대로 유지됩니다.</p>':''}
+      </div>
+    </div>`;
+
+  // 기존 탐험 이어하기
+  $('#sg').onclick=async()=>{
+    const n=$('#nk').value.trim();
+    if(!n)return toast('닉네임을 입력해 주세요');
+
+    if(S){
+      if(n!==S.nickname){
+        await updateDoc(doc(db,'students',me),{nickname:n});
+        S.nickname=n;
+      }
+      snd();
+      go('warm');
+      return;
+    }
+
+    S={
+      nickname:n,
+      badges:{},
+      warm:false,
+      createdAt:Date.now()
+    };
+
+    await setDoc(doc(db,'students',me),S);
+    S.badges=AW;
+    burst();
+    snd();
+    go('warm');
+  };
+
+  // 새로운 익명 계정으로 탐험 시작
+  $('#newRun').onclick=async()=>{
+    if(!confirm(
+      '새 탐험을 시작할까요?\n기존 탐험 기록은 보존되며, 새로운 학생 계정으로 시작합니다.'
+    ))return;
+
+    try{
+      switchingAccount=true;
+
+      await signOut(auth);
+
+      me=null;
+      S=null;
+      AW={};
+      PR={};
+      myV={};
+      scr='reg';
+
+      await signInAnonymously(auth);
+
+      location.reload();
+
+    }catch(e){
+      switchingAccount=false;
+      console.error('새 탐험 시작 실패:',e);
+      toast('새 탐험 시작 실패: '+(e.code||e.message));
+    }
+  };
+}
+
+ function vWarm(){setBg('./assets/backgrounds/quiz-bg.png','bg-quiz');const q=PR.q||{},dn=[0,1,2].map(i=>q['q'+i]!==undefined),all=dn.every(Boolean),H='<h2>시간 여행 전, 과거의 기록을 복구하라!</h2>';
+  if(!T&&!st.quizOn&&!all){app.innerHTML=`<div class=term>${H}<p>⏳ 선생님이 전시학습 퀴즈를 시작하면 기록 복구 장치가 켜져요.</p></div>`;return}
+  app.innerHTML=`<div class=term>${H}<p>시간 여행자님, 사라진 <b>서양 열강의 제국주의</b> 기록을 복구해야 시간 여행을 떠날 수 있어요.</p><div class=steps>${dn.map(d=>`<i class="${d?'ok':''}"></i>`).join('')}</div>
+  ${WQ.map((t,i)=>`<div class="slot ${dn[i]?'ok':''}"><div><b>기록 ${i+1}</b> · ${t}</div>${dn[i]?`<div class=ok>✅ 복구 완료! ${WE[i]}</div>`:i<st.quizQ||T?`<div class=row><input data-w=${i} placeholder="정답 입력" value="${esc(QV[i])}"><button class=btn data-r=${i}>복구</button></div><div class=fd></div>`:'<div>🔒 선생님이 곧 열어 줄 거예요</div>'}</div>`).join('')}
+  ${st.quizExp?`<div class=slot><b>📖 해설</b>${WE.map((e,i)=>`<p>${i+1}. ${e}</p>`).join('')}</div>`:''}
+  ${all?`<div class="slot ok"><b>🎉 과거의 기록 복구 완료!</b><p>유럽 열강은 제국주의 정책을 통해 아시아와 아프리카에 영향력을 확대했습니다. 그렇다면 서아시아 사람들은 이러한 외세의 압력 속에서 어떤 선택을 했을까요? 이제 직접 시간 여행을 떠나 그들의 역사를 조사해 봅시다.</p></div>`:''}
+  <button class="btn go" id=go ${all&&(st.depart||T)?'':'disabled'}>시간 여행 출발하기 ▶</button>${all&&!st.depart&&!T?'<p>선생님이 출발을 허용하면 버튼이 켜져요.</p>':''}</div>`;
+  document.querySelectorAll('[data-w]').forEach(i=>i.oninput=()=>QV[+i.dataset.w]=i.value);
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=async()=>{const i=+b.dataset.r,v=QV[i].trim(),fd=b.closest('.slot').querySelector('.fd');
+   if(!v){fd.innerHTML='<div class=hint>💡 정답을 입력해 주세요.</div>';return}
+   try{
+    const next={};
+    [0,1,2].forEach(j=>{if(PR.q?.['q'+j]!==undefined)next['q'+j]=PR.q['q'+j]});
+    next['q'+i]=v;
+    await setDoc(doc(db,'students',me,'progress','q'),next);
+    burst(b.getBoundingClientRect().left,b.getBoundingClientRect().top);snd();
+    fd.innerHTML='<div class=ok>✅ 정답이 확인되어 기록을 복구했어요!</div>';
+   }catch(e){
+    console.error('전시학습 정답 저장 실패:',e);
+    fd.innerHTML='<div class=hint>💡 정답이 맞지 않거나 퀴즈 진행 권한이 닫혀 있어요. 입력한 답과 교사의 퀴즈 진행 상태를 확인해 주세요. <small>오류: '+esc(e.code||e.message||'확인 불가')+'</small></div>';
+   }});
+  $('#go').onclick=()=>go('flags');
+}
+
+function vFlags(){
+  app.innerHTML=`
+    <div class="term">
+      <h2>🌍 시간 여행의 목적지를 찾아라!</h2>
+      <p>다음 세 나라의 국기를 살펴보세요.</p>
+
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:12px;
+        margin:28px 0;
+        align-items:center;
+      ">
+        <img src="https://flagcdn.com/w640/sa.png"
+          alt="사우디아라비아 국기"
+          style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px">
+
+        <img src="https://flagcdn.com/w640/eg.png"
+          alt="이집트 국기"
+          style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px">
+
+        <img src="https://flagcdn.com/w640/ir.png"
+          alt="이란 국기"
+          style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px">
+      </div>
+
+      <p>이 국기들의 주인공은 어떤 역사를 경험했을까요?</p>
+      <button class="btn go" id="flagGo">
+        서아시아 탐험 시작하기 ▶
+      </button>
+    </div>
+  `;
+
+  $('#flagGo').onclick=()=>go('map');
+}
+ function vMap(){
+  $('#bg').innerHTML='';
+  const LK='<svg class=ls viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="#fff" /><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#fff" stroke-width="2.5" fill="none"/></svg>';
+  app.innerHTML=`<div class=mapbox><img class="map-only" src="${A('map')}" alt="서아시아 지도">${R.map(r=>{const lk=r.id>st.open&&!T,dn=AW['b'+r.id];return`<button class="mk r${r.id} ${lk?'lk':''} ${dn?'dn':''} ${r.id>st.go&&!lk?'ready':''}" data-r=${r.id} style="--c:${COL[r.id]}"><span class=pin><svg class=s viewBox="-30 -30 60 60">${sym(r.id)}</svg>${lk?LK:''}${dn?`<span class=bm>${AS('badge-'+r.id,bdg(r.id))}</span>`:''}</span><b>${r.n}</b></button>`}).join('')}</div>`;
+  document.querySelectorAll('.mk').forEach(c=>c.onclick=()=>{const id=+c.dataset.r;if(!T&&id>st.open)return toast('🔒 선생님이 아직 열지 않았어요');if(!T&&id>st.go)return toast('⏳ 선생님이 설명한 뒤 미션을 시작해요');cur=id;go('mission')})}
+
+ function vMission(){const r=R[cur-1],x=X[cur];if(!T&&cur>st.go){go('map');return}
+  setBg(SC[cur](),'bg-'+cur);const d0=PR['r'+cur]||{},ps=new Set();
+  if(d0.n)ps.add('n');if(d0.mc!==undefined)ps.add('o0');if(d0.sa!==undefined)ps.add('o1');if(d0.rd!==undefined)ps.add('o2');
+  const wr=o=>setDoc(doc(db,'students',me,'progress','r'+cur),o,{merge:true});
+  app.innerHTML=`<div class=npc id=npc style="left:${x.x}%;top:${x.y}%">${AS('npc-'+cur,person(x.np))}<em>${x.np.nm}</em><u class="arrow">▼ 대화하기</u></div><div id=objs></div>`;
+  const dO=()=>{$('#objs').innerHTML=x.O.map((o,i)=>`<button class="obj ${ps.has('o'+i)?'dn':''} ${ps.has('n')?'on':'lk'}" data-i=${i} style="left:${o.x}%;top:${o.y}%">${AS(`obj-${cur}-${i+1}`,ico(o.i))}<b>${o.n}</b></button>`).join('');
+   document.querySelectorAll('.obj').forEach(b=>b.onclick=()=>ps.has('n')?ob(+b.dataset.i):toast('먼저 여행자와 대화해 보세요'))};
+
+/* 배지 자동 지급 + 미션 완료 버튼 */
+const showDone=()=>{
+  if(document.getElementById('missionDone'))return;
+
+  const b=document.createElement('button');
+  b.id='missionDone';
+  b.className='btn go';
+  b.textContent='미션 완료 → 지도';
+  b.style.cssText=`
+    position:fixed;
+    right:32px;
+    bottom:28px;
+    z-index:9999;
+    padding:16px 26px;
+    font-size:20px;
+    box-shadow:0 5px 0 #0004;
+  `;
+  b.onclick=()=>go('map');
+  app.append(b);
+};
+
+const chk=async()=>{
+  if(!['n','o0','o1','o2'].every(k=>ps.has(k)))return;
+
+  if(AW['b'+cur]){
+    showDone();
+    return;
+  }
+
+  try{
+    await setDoc(doc(db,'students',me,'awards','b'+cur),{
+      rid:'b'+cur,
+      at:Date.now()
+    });
+    AW={...AW,['b'+cur]:true};
+    S.badges=AW;
+    badgeOv(cur);
+    showDone();
+  }
+  catch(e){
+    console.error(e);
+    toast('⚠️ 배지 저장 실패: 네트워크를 확인하고 여행자를 다시 눌러 주세요');
+  }
+};
+
+  const talk=()=>{let k=0;const d=document.createElement('div');d.id='dlg';document.body.append(d);
+   const show=()=>{d.innerHTML=`
+  <div class="npc-group">
+    <div class="pt">${AS('npc-'+cur,person(x.np))}</div>
+    <b class="nm">${x.np.nm}</b>
+  </div>
+  <div>
+    <p class="npc-line">${x.L[k]}</p>
+    <button class="btn go" id=nx>
+      ${k<x.L.length-1?'다음 ▶':'조사 시작!'}
+    </button>
+  </div>`;
+    $('#nx').onclick=async()=>{if(k<x.L.length-1){k++;show();return}
+     try{if(!ps.has('n')){await wr({n:true});ps.add('n');toast('🔎 조사할 수 있는 물건이 빛나요!');snd()}d.remove();dO();chk()}catch(e){toast('⚠️ 아직 미션을 시작할 수 없어요')}}};show()};
+  const ob=i=>{const o=x.O[i],m=document.createElement('div');m.className='modal';
+   const body=o.t==='mc'?`<p><b>${r.mc.q}</b></p>${r.mc.o.map((t,j)=>`<label class=opt><input type=radio name=mc value=${j}>${t}</label>`).join('')}`:o.t==='sa'?`<p><b>${r.sa.q}</b></p><input id=sa placeholder="정답 입력">`:`<p><b>${x.rq}</b></p><input id=rd placeholder="교과서에서 찾은 내용">`;
+   m.innerHTML=`<div class=panel><div class=ph>${AS(`obj-${cur}-${i+1}`,ico(o.i))}<h2>${o.n}</h2></div><p>${o.d}</p><p><b>📖 ${r.pg}</b>에서 단서를 찾아보세요.</p>${body}<div class=fd></div><div class=row><button class="btn go" id=ck>${o.t==='rd'?'찾았어요':'정답 확인'}</button><button class="btn alt" id=cl>닫기</button></div></div>`;document.body.append(m);
+   $('#cl').onclick=()=>m.remove();
+ 
+$('#ck').onclick=async()=>{
+  if(ps.has('o'+i))return m.remove();
+
+  let o2,h;
+  const fd=m.querySelector('.fd');
+
+  if(o.t==='mc'){
+    const c=m.querySelector('[name=mc]:checked');
+    if(!c){
+      fd.innerHTML='<div class=hint>보기를 선택해 주세요.</div>';
+      return;
+    }
+
+    // 객관식 정답 번호 검사
+    const answers={1:1,2:0,3:1,4:0};
+    if(+c.value!==answers[cur]){
+      fd.innerHTML=`<div class=hint>❌ 다시 생각해 보세요.<br>💡 ${r.mc.h}</div>`;
+      return;
+    }
+    o2={mc:+c.value};
+    h=r.mc.h;
+  }
+  else if(o.t==='sa'){
+    const answer=$('#sa').value.trim();
+    if(!answer){
+      fd.innerHTML='<div class=hint>답을 입력해 주세요.</div>';
+      return;
+    }
+
+    // 단답형 정답 검사
+    const answers={
+      1:['사우디 왕국', '사우디아라비아'],
+      2:['영국'],
+      3:['청년 튀르크당'],
+      4:['영국','러시아']
+    };
+
+    const input=norm(answer);
+    const correct=cur===4
+      ? answers[4].every(a=>input.includes(norm(a)))
+      : answers[cur].some(a=>input.includes(norm(a)));
+
+    if(!correct){
+      fd.innerHTML=`<div class=hint>❌ 정답이 아니에요.<br>💡 ${r.sa.h}</div>`;
+      return;
+    }
+
+    o2={sa:answer};
+    h=r.sa.h;
+  }
+  else{
+    const answer=$('#rd').value.trim();
+    if(answer.length<5){
+      fd.innerHTML='<div class=hint>교과서 내용을 한 줄 이상 작성해 주세요.</div>';
+      return;
+    }
+    o2={rd:answer};
+    h='교과서를 읽고 한 줄 이상 적어 보세요.';
+  }
+
+  try{
+    await wr(o2);
+  }catch(e){
+    fd.innerHTML=`<div class=hint>💡 ${h}</div>`;
+    return;
+  }
+
+  ps.add('o'+i);
+  m.remove();
+  snd();
+  burst();
+  dO();
+  chk();
+};
+};
+   $('#npc').onclick=talk;
+  dO();
+  chk();
+  if(!ps.has('n'))toast('여행자를 클릭해 대화해 보세요');
+  };
+
+ function badgeOv(i){const r=R[i-1],a=cnt()===4,tk=a&&st.discussion;
+  $('#ov').innerHTML=`<div class=bov><div class=rays></div><div class=bd>${AS('badge-'+i,bdg(i))}</div><h2>${r.n} 탐험 완료!</h2><p><b>${r.b}</b><br>${CON[i]}</p>${a?'<p class=unl>🔓 네 개의 배지를 모두 모았어요! 토론장 열쇠를 얻었습니다.</p>':''}<div class=row><button class="btn go" id=ok>탐험 도감 보기</button>${tk?'<button class="btn go" id=tk>토론장으로 ▶</button>':''}</div></div>`;
+  snd();burst(innerWidth/2,innerHeight/2,['✦','★','✧']);nav();$('#ok').onclick=()=>{$('#ov').innerHTML='';go('badges')};if(tk)$('#tk').onclick=()=>{$('#ov').innerHTML='';go('talk')}}
+
+ function vBadges(){setBg(SC.desk(),'bg-desk');const n=cnt(),t=canTalk();
+  app.innerHTML=`<div class=book><h2>📖 탐험 도감</h2><div class=pages>${R.map(r=>{const o=AW['b'+r.id];return`<div class="entry ${o?'on':''}" style="--c:${COL[r.id]}">${AS('badge-'+r.id,bdg(r.id),'bi')}<h3>${o?r.b:'???'}</h3><b>${r.n}</b><p>${o?CON[r.id]:'미션을 완료하면 도감이 채워져요'}</p></div>`}).join('')}</div>
+  <div class="gate ${n===4?'open':''}"><span>${n===4?(st.discussion?'🔓 토론장 잠금 해제!':'🔓 열쇠 획득! 선생님이 문을 열면 입장할 수 있어요'):'🔒 토론장 잠김 '+n+'/4'}</span><button class="btn go" id=en ${t?'':'disabled'}>토론장 입장</button></div></div>`;
+  $('#en').onclick=()=>go('talk')}
+
+ /* ===== 교사 진행 모드: 학생과 같은 화면 위에 열리는 제어 패널 ===== */
+ function tmode(){const dv=document.createElement('aside');dv.id='tdr';dv.hidden=true;document.body.append(dv);
+  const sref=doc(db,'state','session'),set=o=>setDoc(sref,o,{merge:true});
+  getDoc(sref).then(d=>setDoc(sref,{...DEF,...(d.exists()?d.data():{})}));
+  let SD=[],PG=[],AG=[],TP=[];
+
+
+async function resetStudent(uid,nickname,isSelf=false){
+  if(!uid || (uid===me && !isSelf))return;
+
+  const targetName = isSelf ? '교사 본인' : `${nickname} 학생`;
+
+  if(!confirm(`${targetName}의 학습 기록을 초기화할까요?\n${isSelf ? '게시글·댓글·투표와 다른 학생의 기록은 유지됩니다.' : '다른 학생의 기록은 삭제되지 않습니다.'}`))return;
+
+  if(prompt(`초기화 확인을 위해 ${isSelf ? '교사 닉네임' : '학생 닉네임'} "${nickname}"을 입력하세요.`)!==nickname){
+    alert('닉네임이 일치하지 않아 취소했습니다.');
+    return;
+  }
+
+  try{
+    // 학습 진행 기록과 배지만 조회
+    const [progressSnap,awardsSnap]=await Promise.all([
+      getDocs(collection(db,'students',uid,'progress')),
+      getDocs(collection(db,'students',uid,'awards'))
+    ]);
+
+    // 학생 초기화일 때만 게시글·댓글·투표 처리
+    if(!isSelf){
+      const [postsSnap,votesSnap,commentsSnap]=await Promise.all([
+        getDocs(query(collection(db,'posts'),where('authorUid','==',uid))),
+        getDocs(query(collection(db,'votes'),where('uid','==',uid))),
+        getDocs(query(collection(db,'comments'),where('authorUid','==',uid)))
+      ]);
+
+      const postIds=new Set(postsSnap.docs.map(d=>d.id));
+
+      const [postComments,postVotes]=await Promise.all([
+        Promise.all([...postIds].map(id=>
+          getDocs(query(collection(db,'comments'),where('postId','==',id)))
+        )),
+        Promise.all([...postIds].map(id=>
+          getDocs(query(collection(db,'votes'),where('postId','==',id)))
+        ))
+      ]);
+
+      const comments=new Map();
+      [...commentsSnap.docs,...postComments.flatMap(s=>s.docs)]
+        .forEach(d=>comments.set(d.id,d));
+
+      const votes=new Map();
+      [...votesSnap.docs,...postVotes.flatMap(s=>s.docs)]
+        .forEach(d=>votes.set(d.id,d));
+
+      // 다른 학생 게시글에 남긴 투표는 투표 수까지 조정
+      for(const v of votes.values()){
+        const x=v.data();
+
+        if(!postIds.has(x.postId)){
+          const pr=doc(db,'posts',x.postId);
+          const ps=await getDoc(pr);
+
+          if(ps.exists()){
+            const counts={e:0,s:0,w:0,...ps.data().counts};
+            counts[x.type]=Math.max(0,counts[x.type]-1);
+            await updateDoc(pr,{counts});
+          }
+        }
+
+        await deleteDoc(v.ref);
+      }
+
+      // 댓글 삭제
+      for(const c of comments.values()){
+        await deleteDoc(c.ref);
+      }
+
+      // 해당 학생이 작성한 게시글 삭제
+      for(const p of postsSnap.docs){
+        await deleteDoc(p.ref);
+      }
+    }
+
+    // 미션 기록과 배지 삭제
+    for(const p of progressSnap.docs){
+      await deleteDoc(p.ref);
+    }
+
+    for(const a of awardsSnap.docs){
+      await deleteDoc(a.ref);
+    }
+
+    // 학생 기본 정보 삭제
+    await deleteDoc(doc(db,'students',uid));
+
+    if(isSelf){
+      S=null;
+      AW={};
+      PR={};
+      scr='reg';
+      alert('교사 본인의 학습 기록이 초기화되었습니다. 처음부터 다시 등록해 주세요.');
+      render();
+    }else{
+      alert(`${nickname} 학생의 기록 초기화가 완료되었습니다.`);
+    }
+
+  }catch(e){
+    console.error('학생 초기화 오류:',e);
+    alert('초기화 중 오류가 발생했습니다: '+e.message);
+  }
+}
+
+
+const A={
+  qs:()=>set({quizOn:true,quizQ:Math.max(1,st.quizQ)}),
+  qe:()=>set({quizOn:false}),
+  qn:()=>set({quizQ:Math.min(3,st.quizQ+1)}),
+  ex:()=>set({quizExp:!st.quizExp}),
+  dp:()=>set({depart:!st.depart}),
+  nx:()=>set({open:Math.min(4,st.open+1)}),
+  ds:()=>set({discussion:true}),
+ fn:async()=>{
+  console.log('최종 화면 버튼 클릭됨');
+  try{
+    await set({final:true});
+    const check=await getDoc(sref);
+    console.log('Firestore final 값:',check.data()?.final);
+    alert('저장 결과: '+check.data()?.final);
+  }catch(e){
+    console.error('최종 화면 저장 오류:',e);
+    alert('저장 실패: '+e.message);
+  }
+},
+  rs:()=>confirm('수업 진행 상태만 처음으로 되돌립니다. (학생 기록·배지·게시글은 삭제되지 않아요)')&&setDoc(sref,DEF),
+meReset:async()=>{
+  if(!confirm('교사 본인의 학습 기록을 초기화할까요? 다른 학생의 기록과 수업 진행 상태는 유지됩니다.'))return;
+  await resetStudent(me,S?.nickname||'교사',true);
+},
+  lo:async()=>{
+    if(!confirm('교사 계정에서 로그아웃하고 학생 모드로 전환할까요?'))return;
+    await signOut(auth);
+    location.hash='';
+    location.reload();
+  }
+};
+  [1,2,3,4].forEach(n=>{A['o'+n]=()=>set({open:n});A['g'+n]=()=>set({open:Math.max(st.open,n),go:n})});
+  const draw=()=>{const y=dv.scrollTop,qO=u=>PG.find(p=>p.u===u&&p.id==='q')?.d||{},rO=(u,n)=>PG.find(p=>p.u===u&&p.id==='r'+n)?.d||{},rd=d=>d.n&&d.mc!==undefined&&d.sa!==undefined&&d.rd!==undefined,bO=u=>AG.filter(a=>a.u===u).map(a=>a.id),tot=SD.length;
+   const B=(a,l,c='')=>`<button class="btn ${c}" data-a=${a}>${l}</button>`;
+   dv.innerHTML=`<h3 class=f-title>🧭 교사 진행 모드</h3><p>열린 지역 ${st.open}/4 · 미션 허용 ${st.go}/4 · 퀴즈 ${st.quizOn?'진행 중 (공개 '+st.quizQ+'/3)':'꺼짐'} · 출발 ${st.depart?'허용':'대기'} · 토론장 ${st.discussion?'개방':'닫힘'}</p>
+   <h4>① 전시학습 퀴즈</h4><div class=cg>${B('qs','퀴즈 시작')}${B('qn','다음 문제 열기')}${B('ex',st.quizExp?'해설 닫기':'해설 화면으로')}${B('dp',st.depart?'출발 허용 취소':'시간 여행 출발 허용','go')}${B('qe','퀴즈 종료')}</div>
+   <p>문항별 정답 완료: ${[0,1,2].map(i=>`${i+1}번 ${SD.filter(s=>qO(s.id)['q'+i]!==undefined).length}/${tot}명`).join(' · ')}</p>
+   <h4>② 지역 제어 (개방 ≠ 미션 허용)</h4><div class=cg>${R.map(r=>B('o'+r.id,r.n+' 개방')+B('g'+r.id,'미션 허용')).join('')}</div><div class=cg>
+  ${B('nx','다음 지역 개방','go')}
+  ${B('ds','토론장 개방','go')}
+  ${B('fn','최종 화면으로','go')}
+  ${B('rs','수업 초기화')}
+  ${B('meReset','교사 내 학습 기록 초기화')}
+  ${B('lo','로그아웃하고 학생 모드로 전환')}
+</div>
+   <h4>③ 지역별 현황</h4><p>${R.map(r=>`${r.n}: 미션 완료 ${SD.filter(s=>rd(rO(s.id,r.id))).length}명 · 배지 ${SD.filter(s=>bO(s.id).includes('b'+r.id)).length}명`).join('<br>')}<br>네 배지 모두 획득: ${SD.filter(s=>bO(s.id).length===4).length}명</p>
+   <h4>④ 학생별 진행 (${tot}명)</h4>
+<div style="overflow-x:auto">
+<table>
+<tr>
+<th>닉네임</th><th>퀴즈</th>
+${R.map(r=>`<th>${r.n.slice(0,2)}</th>`).join('')}
+<th>배지</th><th>토론장</th><th>초기화</th>
+</tr>
+${SD.map(s=>{
+  const q=qO(s.id),b=bO(s.id);
+  return `<tr>
+    <td>${esc(s.nickname)}</td>
+    <td>${[0,1,2].filter(i=>q['q'+i]!==undefined).length}/3</td>
+    ${R.map(r=>`<td>${rd(rO(s.id,r.id))?'✔':'·'}${b.includes('b'+r.id)?'★':''}</td>`).join('')}
+    <td>${b.length}/4</td>
+    <td>${b.length===4?(st.discussion?'입장 가능':'대기'):'불가'}</td>
+    <td><button class="btn" data-reset="${s.id}">초기화</button></td>
+  </tr>`;
+}).join('')}
+</table>
+</div>
+<p>✔ 미션 완료 · ★ 배지</p><div style="overflow-x:auto"><table><tr><th>닉네임</th><th>퀴즈</th>${R.map(r=>`<th>${r.n.slice(0,2)}</th>`).join('')}<th>배지</th><th>토론장</th></tr>${SD.map(s=>{const q=qO(s.id),b=bO(s.id);return`<tr><td>${esc(s.nickname)}</td><td>${[0,1,2].filter(i=>q['q'+i]!==undefined).length}/3</td>${R.map(r=>`<td>${rd(rO(s.id,r.id))?'✔':'·'}${b.includes('b'+r.id)?'★':''}</td>`).join('')}<td>${b.length}/4</td><td>${b.length===4?(st.discussion?'입장 가능':'대기'):'불가'}</td></tr>`}).join('')}</table></div><p>✔ 미션 완료 · ★ 배지</p>
+   <h4>⑤ 스티커 현황 (투표자는 저장·표시되지 않음)</h4><div style="overflow-x:auto"><table><tr><th>작성자</th><th>🏆</th><th>⚡</th><th>💡</th></tr>${TP.map(p=>`<tr><td>${esc(p.nickname)}</td><td>${p.counts.e}</td><td>${p.counts.s}</td><td>${p.counts.w}</td></tr>`).join('')}</table></div>`;
+     dv.querySelectorAll('[data-a]').forEach(b=>{
+    b.onclick=()=>{
+      console.log('클릭한 버튼:',b.dataset.a);
+      console.log('실행할 함수:',typeof A[b.dataset.a]);
+      A[b.dataset.a]();
+    };
+  });
+  dv.querySelectorAll('[data-reset]').forEach(b=>{
+  b.onclick=()=>{
+    const s=SD.find(x=>x.id===b.dataset.reset);
+    if(s)resetStudent(s.id,s.nickname);
+  };
+});
+
+  dv.scrollTop=y;
+};
+
+tdraw=draw;
+  onSnapshot(collection(db,'students'),s=>{SD=s.docs.filter(d=>d.id!==me).map(d=>({id:d.id,...d.data()}));draw()});
+  onSnapshot(collectionGroup(db,'progress'),s=>{PG=s.docs.map(d=>({u:d.ref.parent.parent.id,id:d.id,d:d.data()}));draw()});
+  onSnapshot(collectionGroup(db,'awards'),s=>{AG=s.docs.map(d=>({u:d.ref.parent.parent.id,id:d.id}));draw()});
+  onSnapshot(collection(db,'posts'),s=>{TP=s.docs.map(d=>d.data()).sort((a,b)=>a.createdAt-b.createdAt);draw()});draw()}
+
+ function vTalk(){setBg(SC.plaza(),'bg-plaza');cards={};editing.clear();
+  app.innerHTML=`<div class="card hall"><h2>🏛️ 공동 토론장 (탐험 완료자 전용)</h2><h3>서아시아의 근대화는 유럽의 영향으로 이루어진 것인가, 아니면 서아시아 사람들이 스스로 만들어 가려 했던 것인가?</h3>
+  <ol><li>서구의 제도와 기술을 수용한 것은 중요한 원인이었는가?</li><li>내부 개혁가와 민중의 역할은 얼마나 중요했는가?</li><li>열강의 개입은 근대화와 국민 국가 건설에 어떤 영향을 주었는가?</li></ol></div>
+  <div class=card><h3>✍️ 내 의견 붙이기</h3><select id=vp>${VP.map((v,i)=>`<option value=${i+1}>관점 ${i+1}. ${v}</option>`).join('')}</select>
+  <textarea id=c1 rows=2 placeholder="나의 주장"></textarea><textarea id=c2 rows=2 placeholder="역사적 근거 (교과서 쪽수 포함)"></textarea><textarea id=c3 rows=2 placeholder="나의 해석"></textarea><textarea id=c4 rows=2 placeholder="다른 의견에 대한 질문"></textarea><button class="btn go" id=pb>📌 게시판에 붙이기</button></div><div id=list></div>`;
+ 
+if(T)$('#pb').closest('.card').remove();
+else $('#pb').onclick=async e=>{
+  const v=[1,2,3,4].map(i=>$('#c'+i).value.trim());
+
+  if(v.some(x=>!x)){
+    return toast('네 칸을 모두 채워 주세요');
+  }
+
+  try{
+    const t=Date.now();
+
+    await addDoc(collection(db,'posts'),{
+      authorUid:me,
+      nickname:S.nickname,
+      vp:+$('#vp').value,
+      claim:v[0],
+      evidence:v[1],
+      interpretation:v[2],
+      question:v[3],
+      createdAt:t,
+      updatedAt:t,
+      edited:false,
+      counts:{e:0,s:0,w:0}
+    });
+
+    [1,2,3,4].forEach(i=>$('#c'+i).value='');
+    burst();
+    toast('📌 게시글이 붙었어요!');
+  }
+  catch(err){
+    console.error('게시글 등록 실패:',err);
+    toast('⚠️ 게시글 등록 실패: '+err.code);
+  }
+};
+
+  if(!talkOn){talkOn=true;
+   onSnapshot(collection(db,'comments'),s=>{CM=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.at-b.at);paint()});
+   onSnapshot(collection(db,'posts'),s=>{P=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.createdAt-b.createdAt);paint()})}
+  paint()}
+
+
+function paint(){
+  if(scr!=='talk'||!$('#list'))return;
+
+  Object.keys(cards).forEach(id=>{
+    if(!P.find(p=>p.id===id)){
+      cards[id].remove();
+      delete cards[id];
+    }
+  });
+
+  P.forEach(p=>{
+    let c=cards[p.id];
+
+    if(!c){
+      c=cards[p.id]=document.createElement('article');
+      c.className='card post';
+      c.dataset.id=p.id;
+
+      c.innerHTML=`
+        <div class=meta></div>
+        <div class=body></div>
+        <div class=ed hidden></div>
+        <div class=stks>
+          ${ST.map(([k,i,n])=>`<button class="stk ${k}" data-k=${k}>${i} ${n} <b>0</b></button>`).join('')}
+        </div>
+        <div class=cms></div>
+        <div class=cf>
+          <input maxlength=300 placeholder="댓글·반론 쓰기">
+          <button class=btn data-cm>등록</button>
+        </div>`;
+      $('#list').prepend(c);
+    }
+
+    const own=p.authorUid===me;
+
+    c.querySelector('.meta').innerHTML=
+      `<b>${esc(p.nickname)}</b> · 관점 ${p.vp} · ${fmt(p.createdAt)}${p.edited?` · ✏️ 수정됨 ${fmt(p.updatedAt)}`:''} ${own?'<button class=btn data-ed style="padding:2px 8px">수정</button> <button class=btn data-del style="padding:2px 8px;background:#d96b5f;color:white">삭제</button>':''}`;
+
+    if(!editing.has(p.id)){
+      c.querySelector('.body').innerHTML=
+        `<p><b>주장</b> ${esc(p.claim)}</p><p><b>근거</b> ${esc(p.evidence)}</p><p><b>해석</b> ${esc(p.interpretation)}</p><p><b>질문</b> ${esc(p.question)}</p>`;
+    }
+
+    c.querySelectorAll('.stk').forEach(b=>{
+      const k=b.dataset.k;
+      b.querySelector('b').textContent=p.counts[k];
+      b.classList.toggle('on',myV[p.id]===k);
+      b.disabled=own||T;
+      b.title=own?'내 글에는 붙일 수 없어요':'';
+    });
+
+    c.querySelector('.cms').innerHTML=
+      CM.filter(m=>m.postId===p.id)
+        .map(m=>`<div class=cm><b>${esc(m.nickname)}</b>: ${esc(m.text)}</div>`)
+        .join('');
+  });
+}
+
+ async function vote(p,t){const vr=doc(db,'votes',p.id+'_'+me),pr=doc(db,'posts',p.id);
+  await runTransaction(db,async tx=>{const[v,ps]=await Promise.all([tx.get(vr),tx.get(pr)]);const c={...ps.data().counts},o=v.exists()?v.data().type:null;
+   if(o===t){c[t]--;tx.delete(vr)}else{if(o)c[o]--;c[t]++;tx.set(vr,{uid:me,postId:p.id,type:t})}tx.update(pr,{counts:c})})}
+
+ app.addEventListener('click',async e=>{const c=e.target.closest('.post');if(!c||scr!=='talk')return;const p=P.find(x=>x.id===c.dataset.id);if(!p)return;
+  const s=e.target.closest('.stk');
+  if(e.target.closest('[data-del]')){
+    if(p.authorUid!==me)return;
+    if(!confirm('이 게시글을 삭제할까요?\n게시글에 달린 댓글과 투표도 함께 삭제됩니다.'))return;
+
+    try{
+      const [cs,vs]=await Promise.all([
+        getDocs(query(collection(db,'comments'),where('postId','==',p.id))),
+        getDocs(query(collection(db,'votes'),where('postId','==',p.id)))
+      ]);
+
+      for(const x of cs.docs){
+        await deleteDoc(x.ref);
+      }
+
+      for(const x of vs.docs){
+        await deleteDoc(x.ref);
+      }
+
+      await deleteDoc(doc(db,'posts',p.id));
+
+      editing.delete(p.id);
+      toast('게시글을 삭제했어요');
+    }catch(er){
+      console.error('게시글 삭제 실패:',er);
+      toast('삭제 실패: '+er.code);
+    }
+    return;
+  }
+
+  if(s&&!s.disabled){s.classList.add('pop');setTimeout(()=>s.classList.remove('pop'),500);const x=s.getBoundingClientRect();
+   try{if(myV[p.id]!==s.dataset.k)burst(x.left+20,x.top,[s.textContent.trim()[0]]);await vote(p,s.dataset.k)
+   }catch(er){
+  console.error('투표 실패:',er);
+  toast('투표 실패: '+er.code);
+}
+  }
+  if(e.target.closest('[data-ed]')){
+  editing.add(p.id);const d=c.querySelector('.ed');d.hidden=false;c.querySelector('.body').hidden=true;
+   d.innerHTML=['claim','evidence','interpretation','question'].map(k=>`<textarea data-k2=${k} rows=2>${esc(p[k])}</textarea>`).join('')+`<button class="btn go" data-sv>저장</button> <button class=btn data-cx>취소</button>`}
+  if(e.target.closest('[data-cx]')){editing.delete(p.id);c.querySelector('.ed').hidden=true;c.querySelector('.body').hidden=false;paint()}
+  if(e.target.closest('[data-sv]')){const o={};c.querySelectorAll('[data-k2]').forEach(t=>o[t.dataset.k2]=t.value.trim());
+   await updateDoc(doc(db,'posts',p.id),{...o,updatedAt:Date.now(),edited:true});editing.delete(p.id);c.querySelector('.ed').hidden=true;c.querySelector('.body').hidden=false;toast('✏️ 수정했어요');paint()}
+  if(e.target.closest('[data-cm]')&&!T){const i=c.querySelector('.cf input'),t=i.value.trim();if(!t)return;await addDoc(collection(db,'comments'),{postId:p.id,authorUid:me,nickname:S.nickname,text:t,at:Date.now()});i.value=''}});
+
+ function vEnd(){setBg(SC.title(),'bg-end');app.innerHTML=`<div class=card style="text-align:center"><div class=scene style="background:var(--sky)">🌀🕰️</div><h2>시간 여행의 끝</h2><p>🎯 <b>학습 목표</b><br> 1. 서아시아 각 지역에서 나타난 국민 국가 건설 운동의 전개 과정과 주요 특징을 설명할 수 있다.<br>
+    2. 서아시아의 국민 국가 건설 과정에서 나타난 내부적 개혁의 한계와 제국주의 열강의 간섭을 분석할 수 있다.</p></div>
+  <div class=ticket><h3>🎫 출구 티켓</h3><p>시간 여행자 <b>${esc(S.nickname)}</b> · 배지 ${[1,2,3,4].filter(i=>S.badges?.['b'+i]).length}/4<br>티켓 번호 ${me.slice(0,6).toUpperCase()}-${new Date().toLocaleDateString('ko-KR')}</p>
+  <textarea id=xn rows=2 placeholder="출구 티켓: 오늘 새롭게 알게 된 점 한 줄"></textarea><button class="btn go" id=xb>🚪 시간 여행 탈출하기</button></div>`;
+  $('#xb').onclick=async()=>{await updateDoc(doc(db,'students',me),{exited:true,exitNote:$('#xn').value.trim(),exitAt:Date.now()});burst();$('#hud').innerHTML='';app.innerHTML=`<div class=card style="text-align:center"><div class=scene style="background:var(--mint)">🚪✨</div><h2>탈출 성공! 수고했어요, 여행자님</h2></div>`}}
+}
+</script></body></html>
